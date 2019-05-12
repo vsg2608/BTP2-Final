@@ -20,7 +20,7 @@ end
 %function to generatedata for bs batches
 function [Data,InitialTime]= generate_data(bs)
     for i= 1:bs
-        [Data(:,:,i),InitialTime]= PMMA(0.0014,3.76,80,100,200,i+1);
+        [Data(:,:,i),InitialTime]= PMMA(0.0014,3.76,80,100,400,i+1);
     end
 end
 

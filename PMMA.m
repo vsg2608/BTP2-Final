@@ -50,7 +50,7 @@ y0(27)=Tr+273;           %Jacket Temp Tj
  
 options=odeset('Mass',M2,'RelTol',1e-2,'AbsTol',1e-2); % adjust this if Integration fails
 
-dT=5;      %Minutes
+dT=2;      %Minutes
 
 Data=[];
 
@@ -64,7 +64,7 @@ taus= normrnd(480,10,1,1000);               %Random values of flow rate of monom
 for i=1:itr
     Tj_sp=Tempratures(i);
     tau=taus(1);
-    if(i>50)
+    if(i>70)
         Tj_sp= Tj_sp+10;
     end
     Ti=(i-1)*dT;
