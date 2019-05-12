@@ -54,10 +54,11 @@ options=odeset('Mass',M2,'RelTol',1e-2,'AbsTol',1e-2); % adjust this if Integrat
 
 dT=5;      %Minutes
 
-for i=1:10 
+for i=1:100
+    
     Ti=(i-1)*dT;
     Tf=Ti+dT;
-    tspan=(Ti*60:10:60*Tf); % in seconds
+    tspan=(Ti:10:60*Tf); % in seconds
     [t,y]=ode15s(@PMMADae2,tspan,y0,options);
     [m,~] = size(y);
     y0=y(m,:);
