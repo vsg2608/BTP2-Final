@@ -1,4 +1,4 @@
-function[Data, dT]=PMMA(I_0,M_0,Tj,Tr,itr)
+function[Data, dT]=PMMA(I_0,M_0,Tj,Tr,itr,seed)
 
 %Parameters
 R=8.314; %KJ/Kmol.K
@@ -54,12 +54,18 @@ dT=5;      %Minutes
 
 Data=[];
 
+rng(seed,'twister');
 Tj_sp=Tj+273;   %Jacket inlet temprature
 tau=480;        %Jacket inverse flow rate
+Tempratures = normrnd(Tj_sp,2,1,1000);     %Random values of Temprature with 
+taus= normrnd(480,10,1,1000);               %Random values of flow rate of monomer
+
 
 for i=1:itr
+    Tj_sp=Tempratures(i);
+    tau=taus(1);
     if(i>50)
-        Tj_sp= Tj+273+10;
+        Tj_sp= Tj_sp+10;
     end
     Ti=(i-1)*dT;
     Tf=Ti+dT;
@@ -70,7 +76,7 @@ for i=1:itr
     mw = MW_M*((y(m,8) + y(m,5))./(y(m,7)+y(m,4)));
     mn = MW_M*((y(m,7) + y(m,4))./(y(m,6)+y(m,3)));
     PD=mw./mn;
-    data=[Tj_sp, tau, y0(20),mw, mn, PD];
+    data=[Tj_sp, tau, y0(20),y0(26),mw, mn, PD];
     Data=vertcat(Data,data);
 end
 
