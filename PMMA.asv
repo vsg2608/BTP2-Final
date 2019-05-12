@@ -1,4 +1,4 @@
-function[t,y,y0]=PMMA(I_0,M_0,Tj,Tr)
+function[Data, dT]=PMMA(I_0,M_0,Tj,Tr,itr)
 
 %Parameters
 R=8.314; %KJ/Kmol.K
@@ -21,8 +21,6 @@ Cp_j= 4.18;
 f=0.53;
 
 
-Tj_sp=Tj+273;   %Jacket inlet temprature
-tau=480;        %Jacket inverse flow rate
 
 %solve ode
 M2=diag([1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1]);
@@ -49,27 +47,32 @@ y0(24) = ((2*f*y0(17)*y0(1))/y0(16)).^(1/2); % r0
 y0(25) = y0(13)*y0(2)*y0(24); % Rp    
 y0(27)=Tr+273;           %Jacket Temp Tj
 % yp0=zeros(27,1)
-
+ 
 options=odeset('Mass',M2,'RelTol',1e-2,'AbsTol',1e-2); % adjust this if Integration fails
 
 dT=5;      %Minutes
 
-for i=1:100
-    
+Data=[];
+
+Tj_sp=Tj+273;   %Jacket inlet temprature
+tau=480;        %Jacket inverse flow rate
+
+for i=1:itr
+    if(i>50)
+        Tj_
     Ti=(i-1)*dT;
     Tf=Ti+dT;
-    tspan=(Ti:10:60*Tf); % in seconds
+    tspan=(Ti*60:10:60*Tf); % in seconds
     [t,y]=ode15s(@PMMADae2,tspan,y0,options);
     [m,~] = size(y);
     y0=y(m,:);
+    mw = MW_M*((y(m,8) + y(m,5))./(y(m,7)+y(m,4)));
+    mn = MW_M*((y(m,7) + y(m,4))./(y(m,6)+y(m,3)));
+    PD=mw./mn;
+    data=[Tj_sp, tau, y0(20),mw, mn, PD];
+    Data=vertcat(Data,data);
 end
 
-mw = MW_M*((y(:,8) + y(:,5))./(y(:,7)+y(:,4)));
-mn = MW_M*((y(:,7) + y(:,4))./(y(:,6)+y(:,3)));
-PD=mw./mn;
-
-
-plot(t,PD)
  
     function[dydt]=PMMADae2(t,y)
     dydt=zeros(27,1);
