@@ -66,8 +66,6 @@ for i=1:itr
     tau=taus(i);
     if(i>70)
         Tj_sp= Tj_sp+15;
-    elseif(i>120)
-        Tj_sp= Tj_sp-5;
     end
     Ti=(i-1)*dT;
     Tf=Ti+dT;

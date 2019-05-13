@@ -19,12 +19,12 @@ for itr=1:20
 
     W=[];
     input=[1,2];
-    output=[3,4];
+    output=[3];
     U= Data(i_qTime:qTime,input,qBatch);    %Inputs
     Y= Data(i_qTime:qTime,output,qBatch);    %Outputs
 
     data = iddata(Y,U,Ts);              %iddata object
-    [sys,x0] = ssest(data,2);           %State Space Model
+    [sys,x0] = ssest(data,1);           %State Space Model
 
     prediction_time= 10;                 %Time after qPoint to be predicted
     t = 0:Ts:Ts*(size_Profile-1)+Ts*prediction_time;
