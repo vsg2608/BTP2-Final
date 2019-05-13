@@ -61,13 +61,13 @@ for itr=1:30
     end
     
     input=[1,2];
-    output=[3];
+    output=[3,4];
     U= cProfile(:,input);  %Inputs
     Y= cProfile(:,output);      %Outputs
 
     data = iddata(Y,U,Ts);
     
-    [sys,x0] = ssest(data,1);
+    [sys,x0] = ssest(data,2);
 
     t = 0:Ts:Ts*(size_Profile-1)+Ts*prediction_time;
     uq= Data(i_qTime:qTime+prediction_time,input,qBatch);

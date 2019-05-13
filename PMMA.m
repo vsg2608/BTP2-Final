@@ -63,9 +63,11 @@ taus= normrnd(480,10,1,1000);               %Random values of flow rate of monom
 
 for i=1:itr
     Tj_sp=Tempratures(i);
-    tau=taus(1);
+    tau=taus(i);
     if(i>70)
-        Tj_sp= Tj_sp+10;
+        Tj_sp= Tj_sp+15;
+    elseif(i>120)
+        Tj_sp= Tj_sp-5;
     end
     Ti=(i-1)*dT;
     Tf=Ti+dT;

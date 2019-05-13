@@ -5,6 +5,7 @@ no_of_batches=5;
 
 %Data normalization
 [Data]= normalize(Data);
+Data=Data(:,[1,2,3,4],:);
 save ("./data/batch_norm_data.mat");
 
 ylabels=["Tj_sp", "Tau", "Conversion", "Tr"];
@@ -27,7 +28,7 @@ end
 % function to normalize raw data
 function [norm_data]= normalize(Data)
     [ts,xs,bs]= size(Data);
-
+    
     for i= 1:xs
         minVal = min(min(Data(:,i,:)));
         maxVal = max(max(Data(:,i,:)));
