@@ -7,11 +7,11 @@ Y_actuals=[];
 qBatch= 5;                      %Query Batch
 qTime= 101;                      %Query Time
 size_Profile=30;                %Query Profile size
-forward_Profile=10;
+forward_Profile=20;
 Ts= dT;                          %Delta Time
-prediction_time= 10;                 %Time after qPoint to be predicted
+prediction_time= 20;                 %Time after qPoint to be predicted
     
-for itr=1:30
+for itr=1:20
     qTime=35+5*itr;
     i_qTime=qTime-size_Profile+1;   %Initial query profile time
     qProfile= Data(i_qTime:qTime,:,qBatch); %Query Profile
@@ -75,7 +75,7 @@ for itr=1:30
     [y,x] = lsim(sys,uq',t,x0);
     lastPoint= size_Profile +prediction_time;
     T_predicts(itr)= qTime+prediction_time;
-    compareOut=1;
+    compareOut=2;
     Y_predicts(itr)= y(lastPoint,compareOut);
     Y_actuals(itr)= yq(lastPoint,compareOut);
     plot(t,y);

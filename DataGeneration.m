@@ -5,7 +5,6 @@ no_of_batches=5;
 
 %Data normalization
 [Data]= normalize(Data);
-Data=Data(:,[1,2,3,4],:);
 save ("./data/batch_norm_data.mat");
 
 ylabels=["Tj_sp", "Tau", "Conversion", "Tr"];
@@ -21,7 +20,7 @@ end
 %function to generatedata for bs batches
 function [Data,InitialTime]= generate_data(bs)
     for i= 1:bs
-        [Data(:,:,i),InitialTime]= PMMA(0.0014,3.76,80,100,400,i+1);
+        [Data(:,:,i),InitialTime]= PMMA(0.0014,37.6,85,90,400,i+1);
     end
 end
 

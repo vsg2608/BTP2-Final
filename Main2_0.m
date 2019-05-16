@@ -8,7 +8,7 @@ size_Profile=30;                %Query Profile sizeT_predicts=[];
 Y_predicts=[];
 Y_actuals=[];
 Ts= dT;
-prediction_time= 10;                 %Time after qPoint to be predicted
+prediction_time= 30;                 %Time after qPoint to be predicted
 
 for itr=1:20
     qTime=35+5*itr;
@@ -57,12 +57,12 @@ for itr=1:20
     end
     
     input=[1,2];
-    output=[3];
+    output=[3,4];
     U= cProfile(1:size_Profile,input);  %Inputs
     Y= cProfile(1:size_Profile,output);      %Outputs
 
     data = iddata(Y,U,Ts);
-    [sys,x0] = ssest(data,1);
+    [sys,x0] = ssest(data,2);
 
     t = 0:Ts:Ts*(size_Profile-1)+Ts*prediction_time;
     uq= Data(i_qTime:qTime+prediction_time,input,qBatch);
@@ -70,7 +70,7 @@ for itr=1:20
     [y,x] = lsim(sys,uq',t,x0);
     lastPoint= size_Profile +prediction_time;
     T_predicts(itr)= qTime+prediction_time;
-    compareOut=1;
+    compareOut=2;
     Y_predicts(itr)= y(lastPoint,compareOut);
     Y_actuals(itr)= yq(lastPoint,compareOut);
     plot(t,y);
