@@ -8,7 +8,7 @@ size_Profile=30;                %Query Profile sizeT_predicts=[];
 Y_predicts=[];
 Y_actuals=[];
 Ts= dT;
-prediction_time= 30;                 %Time after qPoint to be predicted
+prediction_time= 20;                 %Time after qPoint to be predicted
 
 for itr=1:20
     qTime=35+5*itr;
@@ -79,12 +79,14 @@ for itr=1:20
 end
 
 hold off;
-scatter(T_predicts,Y_predicts);
+plot(T_predicts,Y_predicts,'-o');
 hold on;
-line(T_predicts,Y_predicts);
-scatter(T_predicts,Y_actuals);
-line(T_predicts,Y_actuals);
-legend('Predicted','Predicted','Actual','Actual')
+plot(T_predicts,Y_actuals,'-o');
+legend('Predicted','Actual')
 xlabel('Time') 
-ylabel('Conversion')
+if(compareOut==1)
+    ylabel('Conversion')
+else
+    ylabel('Tr')
+end
 err = immse(Y_actuals,Y_predicts)

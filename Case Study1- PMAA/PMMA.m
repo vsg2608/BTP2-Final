@@ -67,6 +67,9 @@ for i=1:itr
     if(i>70)
         Tj_sp= Tj_sp+15;
     end
+    if(i>130)
+        Tj_sp= Tj_sp-30;
+    end
     Ti=(i-1)*dT;
     Tf=Ti+dT;
     tspan=(Ti*60:10:60*Tf); % in seconds
