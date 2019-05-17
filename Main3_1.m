@@ -7,9 +7,9 @@ Y_actuals=[];
 qBatch= 5;                      %Query Batch
 qTime= 101;                      %Query Time
 size_Profile=30;                %Query Profile size
-forward_Profile=20;
+forward_Profile=30;
 Ts= dT;                          %Delta Time
-prediction_time= 20;                 %Time after qPoint to be predicted
+prediction_time= 30;                 %Time after qPoint to be predicted
     
 for itr=1:20
     qTime=35+5*itr;
