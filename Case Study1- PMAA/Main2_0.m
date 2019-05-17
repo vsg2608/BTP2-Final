@@ -8,7 +8,7 @@ size_Profile=30;                %Query Profile sizeT_predicts=[];
 Y_predicts=[];
 Y_actuals=[];
 Ts= dT;
-prediction_time= 20;                 %Time after qPoint to be predicted
+prediction_time= 40;                 %Time after qPoint to be predicted
 
 for itr=1:20
     qTime=35+5*itr;

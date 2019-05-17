@@ -7,10 +7,10 @@ Y_actuals=[];
 qBatch= 5;                      %Query Batch
 qTime= 101;                      %Query Time
 size_Profile=30;                %Query Profile size
-forward_Profile=30;
 Ts= dT;                          %Delta Time
 prediction_time= 30;                 %Time after qPoint to be predicted
-    
+forward_Profile=prediction_time;
+  
 for itr=1:20
     qTime=35+5*itr;
     i_qTime=qTime-size_Profile+1;   %Initial query profile time
@@ -77,7 +77,7 @@ for itr=1:20
     lastPoint= size_Profile +prediction_time;
     T_predicts(itr)= qTime+prediction_time;
     
-    compareOut=2;
+    compareOut=1;
     Y_predicts(itr)= y(lastPoint,compareOut);
     Y_actuals(itr)= yq(lastPoint,compareOut);
     plot(t,y);
@@ -85,12 +85,14 @@ for itr=1:20
     plot(t,yq);
 end
 hold off;
-scatter(T_predicts,Y_predicts);
+plot(T_predicts,Y_predicts,'-o');
 hold on;
-line(T_predicts,Y_predicts);
-scatter(T_predicts,Y_actuals);
-line(T_predicts,Y_actuals);
-legend('Predicted','Predicted','Actual','Actual')
+plot(T_predicts,Y_actuals,'-o');
+legend('Predicted','Actual')
 xlabel('Time') 
-ylabel('Conversion')
+if(compareOut==1)
+    ylabel('Conversion')
+else
+    ylabel('Tr')
+end
 err = immse(Y_actuals,Y_predicts)
